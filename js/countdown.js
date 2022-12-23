@@ -1,0 +1,36 @@
+const headerText = "Hyvää joulua Otava 😘";
+const p1 = "Tämä kuponki oikeuttaa yhteen (1) [yksi] illalliseen <a href='http://restaurangmessob.se'>Ravintola Messobissa</a>.";
+const p2 = "t. Vinö";
+const paragraphs = [p1, p2];
+
+function timeleft(targetIso) {
+	let target = new Date(targetIso);
+	var diff = target - new Date();
+	if (diff < 0) {
+		return [0,0,0,0];
+	} else {
+		let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+		diff = diff - days * (1000 * 60 * 60 * 24);
+		let hours = Math.floor(diff / (1000 * 60 * 60));
+		diff = diff - hours * (1000 * 60 * 60);
+		let minutes = Math.floor(diff / (1000 * 60));
+		diff = diff - minutes * (1000 * 60);
+		let seconds = Math.floor(diff / (1000));
+		diff = diff - seconds * (1000);
+		return [days, hours, minutes, seconds];
+	}
+}
+
+$( document ).ready(function() {
+	let targetIso = "2022-12-24T17:00";
+	let left = timeleft(targetIso);
+	if (left[0] == 0 && left[1] == 0 && left[2] == 0 && left[3] == 0) {
+		$("#header").innerHTML = headerText;
+    	$("#container").append(p1);
+    	$("#container").append(p2);
+	} else {
+		console.log(left);
+		let countdown = left[0] + " päivää " + left[1] + " tuntia " + left[2] + " minuuttia " + left[3] + " sekuntia...";
+		$("#header").html("Yllätykseen " + countdown);
+	}
+});
