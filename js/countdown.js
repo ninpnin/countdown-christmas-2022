@@ -34,7 +34,6 @@ function refresh(targetIso) {
 }
 
 $( document ).ready(function() {
-	//let targetIso = "2022-12-24T17:00";
-	let targetIso = "2022-12-23T22:17";
+	let targetIso = "2022-12-24T17:00";
 	setInterval(() => refresh(targetIso), 100);
 });
