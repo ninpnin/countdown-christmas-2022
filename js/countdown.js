@@ -1,7 +1,6 @@
 const headerText = "Hyvää joulua Otava 😘";
 const p1 = "Tämä kuponki oikeuttaa yhteen (1) [yksi] illalliseen <a href='http://restaurangmessob.se'>Ravintola Messobissa</a>.";
 const p2 = "t. Vinö";
-const paragraphs = [p1, p2];
 
 function timeleft(targetIso) {
 	let target = new Date(targetIso);
@@ -21,16 +20,21 @@ function timeleft(targetIso) {
 	}
 }
 
-$( document ).ready(function() {
-	let targetIso = "2022-12-24T17:00";
+function refresh(targetIso) {
 	let left = timeleft(targetIso);
 	if (left[0] == 0 && left[1] == 0 && left[2] == 0 && left[3] == 0) {
-		$("#header").innerHTML = headerText;
-    	$("#container").append(p1);
-    	$("#container").append(p2);
+		$("#header").html(headerText);
+    	$("#target1").html(p1);
+    	$("#target2").html(p2);
 	} else {
-		console.log(left);
 		let countdown = left[0] + " päivää " + left[1] + " tuntia " + left[2] + " minuuttia " + left[3] + " sekuntia...";
 		$("#header").html("Yllätykseen " + countdown);
+    	$("#target1").html(targetIso);
 	}
+}
+
+$( document ).ready(function() {
+	//let targetIso = "2022-12-24T17:00";
+	let targetIso = "2022-12-23T22:17";
+	setInterval(() => refresh(targetIso), 100);
 });
